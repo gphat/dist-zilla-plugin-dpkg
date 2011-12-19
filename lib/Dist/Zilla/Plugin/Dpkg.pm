@@ -14,7 +14,6 @@ use Moose;
 # * cron.d
 # * doc-base
 # * substvars
-# * rules
 # * templates
 # * watch
 
@@ -195,7 +194,7 @@ has 'package_description' => (
     is => 'ro',
     isa => 'Str',
     default => '<single line synopsis>
-<extended description over several lines>'
+ <extended description over several lines>'
 );
 
 =attr package_name
@@ -267,6 +266,18 @@ has 'postrm_template' => (
     predicate => 'has_postrm_template'
 );
 
+=attr rules_template
+
+If set, the specified file is used as a template for the C<rules> file.
+
+=cut
+
+has 'rules_template' => (
+    is => 'ro',
+    isa => 'Str',
+    predicate => 'has_rules_template'
+);
+
 has '_control_file' => (
     is => 'ro',
     isa => 'Str',
@@ -310,8 +321,8 @@ sub setup_installer {
     
     # conffiles file
     if($self->has_conffiles_template) {
+        die "Can't find file: ".$self->conffiles_template unless -e $self->conffiles_template;
         my $template = Text::Template->new(TYPE => 'FILE', SOURCE => $self->conffiles_template);
-
         $self->add_file(Dist::Zilla::File::InMemory->new({
             content => $template->fill_in(HASH => \%vars),
             name => 'debian/conffiles'
@@ -320,6 +331,7 @@ sub setup_installer {
 
     # config file
     if($self->has_config_template) {
+        die "Can't find file: ".$self->config_template unless -e $self->config_template;
         my $template = Text::Template->new(TYPE => 'FILE', SOURCE => $self->config_template);
 
         $self->add_file(Dist::Zilla::File::InMemory->new({
@@ -330,6 +342,7 @@ sub setup_installer {
 
     # control file
     if($self->has_control_template) {
+        die "Can't find file: ".$self->control_template unless -e $self->control_template;
         my $template = Text::Template->new(TYPE => 'FILE', SOURCE => $self->control_template);
 
         $self->add_file(Dist::Zilla::File::InMemory->new({
@@ -347,6 +360,7 @@ sub setup_installer {
 
     # default file
     if($self->has_default_template) {
+        die "Can't find file: ".$self->default_template unless -e $self->default_template;
         my $template = Text::Template->new(TYPE => 'FILE', SOURCE => $self->default_template);
 
         $self->add_file(Dist::Zilla::File::InMemory->new({
@@ -357,6 +371,7 @@ sub setup_installer {
 
     # init file
     if($self->has_init_template) {
+        die "Can't find file: ".$self->init_template unless -e $self->init_template;
         my $template = Text::Template->new(TYPE => 'FILE', SOURCE => $self->init_template);
 
         $self->add_file(Dist::Zilla::File::InMemory->new({
@@ -367,6 +382,7 @@ sub setup_installer {
 
     # install file
     if($self->has_install_template) {
+        die "Can't find file: ".$self->install_template unless -e $self->install_template;
         my $template = Text::Template->new(TYPE => 'FILE', SOURCE => $self->install_template);
 
         $self->add_file(Dist::Zilla::File::InMemory->new({
@@ -377,6 +393,7 @@ sub setup_installer {
 
     # postinst file
     if($self->has_postinst_template) {
+        die "Can't find file: ".$self->postinst_template unless -e $self->postinst_template;
         my $template = Text::Template->new(TYPE => 'FILE', SOURCE => $self->postinst_template);
 
         $self->add_file(Dist::Zilla::File::InMemory->new({
@@ -387,11 +404,23 @@ sub setup_installer {
 
     # postrm file
     if($self->has_postrm_template) {
+        die "Can't find file: ".$self->postrm_template unless -e $self->postrm_template;
         my $template = Text::Template->new(TYPE => 'FILE', SOURCE => $self->postrm_template);
 
         $self->add_file(Dist::Zilla::File::InMemory->new({
             content => $template->fill_in(HASH => \%vars),
             name => 'debian/postrm'
+        }));
+    }
+
+    # rules file
+    if($self->has_rules_template) {
+        die "Can't find file: ".$self->rules_template unless -e $self->rules_template;
+        my $template = Text::Template->new(TYPE => 'FILE', SOURCE => $self->rules_template);
+
+        $self->add_file(Dist::Zilla::File::InMemory->new({
+            content => $template->fill_in(HASH => \%vars),
+            name => 'debian/rules'
         }));
     }
 }
