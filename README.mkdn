@@ -8,9 +8,9 @@ version 0.01
 
 # SYNOPSIS
 
-  [Dpkg]
-  architecture = amd64
-  default_template = package/debian/default
+  #  [Dpkg]
+  #  architecture = amd64
+  #  default_template = package/debian/default
 
 # DESCRIPTION
 

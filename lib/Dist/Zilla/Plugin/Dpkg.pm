@@ -20,9 +20,9 @@ use Moose;
 
 =head1 SYNOPSIS
 
-  [Dpkg]
-  architecture = amd64
-  default_template = package/debian/default
+  #  [Dpkg]
+  #  architecture = amd64
+  #  default_template = package/debian/default
 
 =head1 DESCRIPTION
 
