@@ -29,10 +29,10 @@ use Moose;
 Dist::Zilla::Plugin::Dpkg generates Debian' controls files that you can use
 with debhelper to generate packages of your perl module.
 
-There are a handful of tools that provide similar functionality, but most of
+There are a handful of tools that provide similar functionality. Most of
 them expect your perl module to have a standard installation mechanism.  This
-module was born of a need for customization, as it used per-package perlbrews
-and all manner of custom bits.
+module was born of a need for customization. It's projects used per-package
+perlbrews and all manner of custom bits.
 
 =cut
 
