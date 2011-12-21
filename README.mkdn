@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::Dpkg - Generate Dpkg files for your perl module
 
 # VERSION
 
-version 0.01
+version 0.02
 
 # SYNOPSIS
 
@@ -35,6 +35,7 @@ to any templates that are processed, using attributes as values:
 - package_description
 - package_name
 - package_section
+- package_shell_name
 - version
 
 # SUBCLASSING
@@ -156,6 +157,12 @@ The priority of the package we're making. Defaults to `extra`.
 The section of the package we're making. Defaults to `lib`.
 
 [http://www.debian.org/doc/debian-policy/ch-archive.html#s-subsections](http://www.debian.org/doc/debian-policy/ch-archive.html#s-subsections).
+
+## package_shell_name
+
+The name of this package converted to a form suitable for environment variable
+use. Foo-Bar becomes FOO_BAR.  Defaults to `name` upper-cased with hyphens
+converted to underscores.
 
 ## postinst_template
 

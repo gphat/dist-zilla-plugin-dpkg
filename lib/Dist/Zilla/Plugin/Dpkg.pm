@@ -416,13 +416,13 @@ converted to underscores.
 
 =cut
 
-has 'package_name' => (
+has 'package_shell_name' => (
     is => 'ro',
     isa => 'Str',
     lazy => 1,
     default => sub {
         my $self = shift;
-        my $name uc($self->zilla->name)
+        my $name = uc($self->zilla->name)
         $name =~ s/-/_/g;
         return $name;
     }
