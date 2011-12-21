@@ -1,6 +1,8 @@
 Revision history for Data-Verifier
 
 {{$NEXT}}
+
+0.02 Dec 21 2011
   - Add package_shell_name variable
 
 0.01
