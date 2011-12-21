@@ -1,0 +1,8 @@
+Revision history for Data-Verifier
+
+{{$NEXT}}
+  - Add package_shell_name variable
+
+0.01
+  - First version, released on an unsuspecting world.
+
