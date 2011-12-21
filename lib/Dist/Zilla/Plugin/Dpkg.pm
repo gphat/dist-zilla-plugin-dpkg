@@ -422,7 +422,7 @@ has 'package_shell_name' => (
     lazy => 1,
     default => sub {
         my $self = shift;
-        my $name = uc($self->zilla->name)
+        my $name = uc($self->zilla->name);
         $name =~ s/-/_/g;
         return $name;
     }
