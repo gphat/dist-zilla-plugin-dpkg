@@ -66,6 +66,8 @@ to any templates that are processed, using attributes as values:
 
 =item package_section
 
+=item package_shell_name
+
 =item version
 
 =back
@@ -406,6 +408,26 @@ has 'package_section' => (
     default => 'lib'
 );
 
+=attr package_shell_name
+
+The name of this package converted to a form suitable for environment variable
+use. Foo-Bar becomes FOO_BAR.  Defaults to C<name> upper-cased with hyphens
+converted to underscores.
+
+=cut
+
+has 'package_name' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    default => sub {
+        my $self = shift;
+        my $name uc($self->zilla->name)
+        $name =~ s/-/_/g;
+        return $name;
+    }
+);
+
 =attr postinst_template
 
 If set, the specified file is used as a template for the C<postinst> file.
@@ -510,6 +532,7 @@ sub setup_installer {
         package_name    => $self->package_name,
         package_priority=> $self->package_priority,
         package_section  => $self->package_section,
+        package_shell_name => $self->package_shell_name,
         version         => $self->zilla->version
     );
     
